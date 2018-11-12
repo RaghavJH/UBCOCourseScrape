@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<body>
+<p id="demo1"></p>
+<p id="demo2"></p>
+<script type="text/javascript" src="jkl-parsexml.js"></script>
+<script type="text/javascript" src="course.js"></script>
+<script type="text/javascript" src="ubcoCourse.js"></script>
+<script>
+	var UbcoCourses = new ubcoCourses();
+	//Get a course by its title.
+	var course1 = UbcoCourses.getCourseByTitle(UbcoCourses.getCourseTypeByCode("COSC"), "Vector Graphics and Animations");
+	//Get a course by its section
+	var course2 = UbcoCourses.getCourseBySection(UbcoCourses.getCourseTypeByCode("COSC"), 101);
+
+	if(course1 == null) {
+		document.getElementById("demo1").innerHTML = "Course1 does not exist.";
+	} else {
+		document.getElementById("demo1").innerHTML = course1.getDescription();
+	}
+
+	if(course2 == null) {
+		document.getElementById("demo2").innerHTML = "Course2 does not exist.";
+	} else {
+		document.getElementById("demo2").innerHTML = course2.getDescription();
+	}	
+</script>
+</body>
+</html>

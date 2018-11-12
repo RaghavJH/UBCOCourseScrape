@@ -1,0 +1,29 @@
+# Keywords to separate prerequisites, corequisities and equivalency.
+# Lines that start with '#' are comments
+# Each regex represents the type of line that may be present.
+# DO NOT use any upper case characters.
+# Format is a:b:c, where a is the regex to match, b is the content to find, and c is the expression to represent a.
+# e.g. One of COSC 122, COSC 123, COSC 111. -> means OR;cosc 122;cosc 123;cosc 111;
+# e.g. A score of 60% or higher in COSC 122, COSC 123, COSC 111. -> %OR;cosc 122;cosc 123;cosc 111;
+# e.g. All of COSC 123, COSC 122, COSC 111. -> AND;cosc 123;cosc 122;cosc 111;
+# Purpose of (.*) is to allow any characters before / after.
+#
+# COSC 122.
+^(\s)*\w{4}\s?\d{2,3}[,.\s]?$:\w{4}\s?\d{2,3}:SINGLE
+# One of COSC 122, COSC 123, COSC 111.
+one of ((or\s)?\w{4,10}\s?\d{2,3}[,.\s]\s?)*:\w{4}\s?\d{2,3}:OR
+# All of COSC 123, COSC 122, COSC 111.
+all of ((and\s)?\w{4,10}\s?\d{2,3}[,.\s]\s?)*:\w{4}\s?\d{2,3}:AND
+# A score of 60% or higher in COSC 122, COSC 123, COSC 111.
+a score of \d{2}% or higher in ((and\s)?\w{4,10}\s?\d{2,3}[,.\s]\s?)*:\w{4}\s?\d{2,3}:%OR
+# Either (a) ANTH 100 or (b) ANTH 170 or (c) ANTH 252.
+either (\(\w\)(\s)?\w{4,10}\s?\d{2,3}(\sor)?[\s.]?)*:\w{4}\s?\d{2,3}:OR
+# X-year standing
+(\s)*(\w*)-year standing.:^[^-]+:YSTD
+# Unevaluated examples:
+# All of MATH 200, MATH 221 and 9 credits of 300-level MATH.
+# At least 12 credits of 300-level MATH.
+# 27 credits of MATH.
+# 15 credits of 300- or 400-level MATH and STAT courses and permission of the department head and faculty supervisor.
+# One of CHEM 113, CHEM 123. A minimum grade of 65% in CHEM 113 is strongly recommended. For Chemistry, Biochemistry, and Environmental Chemistry majors. Other students should enrol in CHEM 213.
+# \)\s(.*?)\,

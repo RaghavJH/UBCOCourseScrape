@@ -1,0 +1,191 @@
+<!--
+The following code is a property of
+
+(C) 2018 Tommy, Kathryn, Raghav ALL RIGHTS RESERVED
+under supervision by Dr. Abdallah
+-->
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	<style>
+		body {
+			overflow-x: hidden;
+		}
+
+		.noselect {
+			-webkit-touch-callout: none;
+			/* iOS Safari */
+			-webkit-user-select: none;
+			/* Safari */
+			-khtml-user-select: none;
+			/* Konqueror HTML */
+			-moz-user-select: none;
+			/* Firefox */
+			-ms-user-select: none;
+			/* Internet Explorer/Edge */
+			user-select: none;
+			/* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+		}
+
+		ul li {
+			list-style-type: none;
+		}
+		li {
+			margin:25px;
+		}
+		.course {
+			position: absolute;
+
+		}
+
+		.course1 {
+			width: 100px;
+			vertical-align: middle;
+			text-align: center;
+			border: 2px solid black;
+			background: white;
+		}
+
+		.course2 {
+			background: white;
+			padding: 0 5px;
+			width: 250px;
+			text-align: left;
+			border: 2px solid black;
+		}
+	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+	<div class="container col-xs-12 main">
+
+		<ul>
+
+			<li>
+				<div id="course1" class="course noselect">
+					<div class="course1">
+						<p class="courseTitle"></p>
+					</div>
+					<div class="course2">
+						<p class="courseDescription"></p>
+					</div>
+				</div>
+			</li>
+
+			<li>
+				<div id="course2" class="course noselect">
+					<div class="course1">
+						<p class="courseTitle"></p>
+					</div>
+					<div class="course2">
+						<p class="courseDescription"></p>
+					</div>
+				</div>
+			</li>
+
+	</div>
+	</ul>
+
+	<p id="demo1"></p>
+	<p id="demo2"></p>
+
+
+	<script type="text/javascript" src="jkl-parsexml.js"></script>
+	<script type="text/javascript" src="course.js"></script>
+	<script type="text/javascript" src="ubcoCourse.js"></script>
+	<script type="text/javascript" src="p5.js"></script>
+	<script type="text/javascript" src="addons/p5.dom.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script>
+		var UbcoCourses = new ubcoCourses();
+		//Get a course by its title.
+		var course1 = UbcoCourses.getCourseBySection(UbcoCourses.getCourseTypeByCode("COSC"), 114);
+		//Get a course by its section
+		var course2 = UbcoCourses.getCourseBySection(UbcoCourses.getCourseTypeByCode("PSYO"), 111);
+
+		if (course1 == null) {
+			console.log("ahhh");
+		} else {
+			$("#course1 .courseTitle").html(course1.code + " " + course1.section);
+			$("#course1 .courseDescription").html(course1.description);
+		}
+
+		if (course2 == null) {
+			console.log("ahhh");
+		} else {
+			$("#course2 .courseTitle").html(course2.code + " " + course2.section);
+			$("#course2 .courseDescription").html(course2.description);
+
+		}
+
+
+
+		$(".course2").hide();
+
+		var BScComputerScience = [];
+		for (var i = 1; i <= 20; i ++){
+
+		  var course3 = UbcoCourses.getCourseBySection(UbcoCourses.getCourseTypeByCode("COSC"), 122);
+
+		  BScComputerScience.push(course);
+		}
+		console.log(BScComputerScience);
+
+
+		$(function() {
+			var isDragging = false;
+			$("li").hover(function() {
+				$(this)
+				.mouseenter(function() {
+					jQuery(this).find('.course1').css("background", "gray")
+				})
+				.mouseleave(function() {
+					jQuery(this).find('.course1').css("background", "white")
+				})
+				.mousedown(function() {
+					isDragging = false;
+					jQuery(this).find(".course").css("z-index", 10);
+				})
+				.mousemove(function() {
+					isDragging = true;
+					jQuery(this).find(".course").css("z-index", 1000);
+				})
+				.mouseup(function() {
+					var wasDragging = isDragging;
+					isDragging = false;
+
+					if (!wasDragging) {
+						jQuery(this).find(".course2").toggle();
+					}
+					jQuery(this).find(".course").css("z-index", 10);
+
+				})
+
+
+		})
+	});
+			$(".course").draggable();
+
+			function contains(string){
+			  var phrase = "prerequisite";
+			  if (string.toLowerCase().indexOf(phrase) >= 0){
+			    console.log("String contains " + phrase);
+			  }
+			}
+
+	</script>
+</body>
+
+</html>
