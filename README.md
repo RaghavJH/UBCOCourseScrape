@@ -32,3 +32,5 @@ Extracts:
     </coursetype>
 # TODO
 Currently working on adding custom boolean expressions for prerequisites that make them computer readable. E.g. if a prerequisite is "One of Math 100, Math 101 or Math 200" it evaluates to "OR(MATH 100,MATH 101,MATH 200)"
+# Note
+Not actually meant for public use, just using GitHub to synchronize my work across my devices easily. Also allows people to see what kind of work I do.
